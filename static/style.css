@@ -1,0 +1,151 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #F0F0F0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 80%;
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.chat-box {
+    background-color: #E0E0E0;
+    padding: 10px;
+    border-radius: 10px;
+    overflow-y: auto;
+    flex-grow: 1;
+    margin-bottom: 10px;
+}
+
+.message {
+    margin-bottom: 10px;
+}
+
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.input-text {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 5px;
+    resize: none;
+    overflow-y: hidden;
+    max-height: 3em;
+}
+
+.submit-button {
+    background-color: #008CBA;
+    color: white;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.sidebar {
+    width: 250px;
+    height: 100%;
+    background-color: black;
+    padding-top: 20px;
+    color: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow-y: auto;
+}
+
+.sidebar h2 {
+    text-align: center;
+}
+
+#historyList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#historyList li {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#historyList li:hover {
+    background-color: #555;
+}
+
+.selected-message {
+    background-color: #5b6263;
+    border: 2px solid #4a4a4b;
+    transition: background-color 1s, border-color 1s;
+}
+
+.user-message-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.bot-message-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.user-message {
+    background-color: #FFFFFF;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.bot-message {
+    background-color: #FFFFFF;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.user-name {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.bot-name {
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: black;
+}
+
+.logo {
+    max-height: 80px;
+    max-width: 80px;
+    margin-right: 10px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.app-title {
+    margin: 0;
+}
+
+

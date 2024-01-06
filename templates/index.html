@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spam Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>History</h2>
+        <ul id="historyList">
+
+        </ul>
+    </div>
+    <div class="container">
+        <div class="header">
+            <img class="logo" src="../static/logo.png"/>
+            <h1 class="app-title">spamBERT 1.0</h1>
+        </div>
+        <div class="chat-box" id="chatBox">
+            <div class="user-name">spamBERT</div>
+            <div class="bot-message">
+                Hi! How can I help you today?
+            </div>
+        </div>
+
+        <form method="post" onsubmit="return sendMessage();">
+            <div class="input-container">
+
+                <input type="text" id="user_input" name="user_input" class="input-text" required oninput="updateInputHeight()">
+                <button type="submit" class="submit-button">Send</button>
+            </div>
+        </form>
+    </div>
+
+   <script>
+        function sendMessage() {
+        var userInput = document.getElementById('user_input').value;
+        var chatBox = document.getElementById('chatBox');
+
+        var userMessageContainer = document.createElement('div');
+        userMessageContainer.className = 'user-message-container';
+
+        var userName = document.createElement('div');
+        userName.className = 'user-name';
+        userName.innerText = 'You';
+        userMessageContainer.appendChild(userName);
+
+        var userMessage = document.createElement('div');
+        userMessage.className = 'message user-message';
+        userMessage.innerText = userInput;
+
+        userMessageContainer.appendChild(userMessage);
+        chatBox.appendChild(userMessageContainer);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var response = JSON.parse(xhr.responseText);
+
+                var botMessageContainer = document.createElement('div');
+                botMessageContainer.className = 'bot-message-container';
+
+                var botName = document.createElement('div');
+                botName.className = 'bot-name';
+                botName.innerText = 'spamBERT';
+                botMessageContainer.appendChild(botName);
+
+                var botMessage = document.createElement('div');
+                botMessage.className = 'message bot-message';
+                botMessage.innerText = "I think this message is " + response.prediction;
+
+                botMessageContainer.appendChild(botMessage);
+                chatBox.appendChild(botMessageContainer);
+
+                updateHistory(userInput, response.prediction);
+
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        };
+        xhr.send("user_input=" + encodeURIComponent(userInput));
+
+        document.getElementById('user_input').value = '';
+
+        return false;
+    }
+
+function handleHistoryClick(userInput) {
+
+    var chatBox = document.getElementById('chatBox');
+    var messages = chatBox.getElementsByClassName('user-message');
+
+    for (let i = 0; i < messages.length; i++) {
+        if (messages[i].innerHTML === userInput) {
+            messages[i].classList.add('selected-message');
+
+            messages[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            setTimeout(function() {
+                messages[i].classList.remove('selected-message');
+            }, 2000);
+        } else {
+            messages[i].classList.remove('selected-message');
+        }
+    }
+}
+
+
+    function updateHistory(userInput, prediction) {
+        var historyList = document.getElementById('historyList');
+
+        var historyItem = document.createElement('li');
+        historyItem.innerHTML = "<strong>User:</strong> " + userInput + " | <strong>Prediction:</strong> " + prediction;
+        historyItem.addEventListener('click', function() {
+            handleHistoryClick(userInput);
+        });
+        historyList.appendChild(historyItem);
+    }
+</script>
+</body>
+</html>
