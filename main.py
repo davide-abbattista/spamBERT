@@ -9,22 +9,26 @@ from model.methods import train, evaluate
 from utility.custom_email_dataset import EmailClassificationDataset
 from utility.utils import load_data
 
-data_file = "data/spam_ham_dataset.csv"
-texts, labels = load_data(data_file)
+data_file1 = "spam_ham_dataset.csv"
+data_file2 = "SMSSpamCollection.csv"
+texts1, labels1 = load_data(data_file1)
+texts2, labels2 = load_data(data_file2)
+texts = texts1 + texts2
+texts = [str(el) for el in texts]
+labels = labels1 + labels2
 
 # Set up parameters
 bert_model_name = 'bert-base-cased'
 num_classes = 2
-max_length = 128
 batch_size = 16
-num_epochs = 4
+num_epochs = 10
 learning_rate = 2e-5
 
 train_texts, val_texts, train_labels, val_labels = train_test_split(texts, labels, test_size=0.2, random_state=42)
 
 tokenizer = BertTokenizer.from_pretrained(bert_model_name)
-train_dataset = EmailClassificationDataset(train_texts, train_labels, tokenizer, max_length)
-val_dataset = EmailClassificationDataset(val_texts, val_labels, tokenizer, max_length)
+train_dataset = EmailClassificationDataset(train_texts, train_labels, tokenizer)
+val_dataset = EmailClassificationDataset(val_texts, val_labels, tokenizer)
 train_dataloader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 val_dataloader = DataLoader(val_dataset, batch_size=batch_size)
 
