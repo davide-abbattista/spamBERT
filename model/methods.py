@@ -31,9 +31,9 @@ def evaluate(model, data_loader, device):
             actual_labels.extend(labels.cpu().tolist())
     return accuracy_score(actual_labels, predictions), classification_report(actual_labels, predictions)
 
-def predict_ham_spam(text, model, tokenizer, device, max_length=128):
+def predict_ham_spam(text, model, tokenizer, device):
     model.eval()
-    encoding = tokenizer(text, return_tensors='pt', max_length=max_length, padding='max_length', truncation=True)
+    encoding = tokenizer(text, return_tensors='pt', padding='max_length', truncation=True)
     input_ids = encoding['input_ids'].to(device)
     attention_mask = encoding['attention_mask'].to(device)
 

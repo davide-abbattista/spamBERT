@@ -2,7 +2,7 @@ import torch
 from torch.utils.data import Dataset
 
 
-class EmailClassificationDataset(Dataset):
+class SpamClassificationDataset(Dataset):
     def __init__(self, texts, labels, tokenizer):
         self.texts = texts
         self.labels = labels
