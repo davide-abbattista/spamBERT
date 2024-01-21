@@ -2,8 +2,8 @@ import torch
 from torch.utils.data import Dataset
 
 
-# Definisce una classe per il dataset di classificazione email
-class EmailClassificationDataset(Dataset):
+# Definisce una classe per il dataset di classificazione spam
+class SpamClassificationDataset(Dataset):
     def __init__(self, texts, labels, tokenizer):
         # Inizializza il dataset con testi, etichette e un tokenizer
         self.texts = texts
