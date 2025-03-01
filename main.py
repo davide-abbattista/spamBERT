@@ -10,8 +10,8 @@ from utility.custom_spam_dataset import SpamClassificationDataset
 from utility.utils import load_data
 
 # Definizione dei file dei dati e caricamento dei dati
-data_file1 = "spam_ham_dataset.csv"
-data_file2 = "SMSSpamCollection.csv"
+data_file1 = "data/spam_ham_dataset.csv"
+data_file2 = "data/SMSSpamCollection.csv"
 texts1, labels1 = load_data(data_file1)
 texts2, labels2 = load_data(data_file2)
 
